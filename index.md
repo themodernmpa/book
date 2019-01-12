@@ -2,15 +2,6 @@
 
 You probably don't need a Single Page App after all.
 
-1. [Cross Component Communication](message_bus)
-2. [Appication Structure](application_structure)
-3. [Multi Page App vs SPA](mpa_vs_spa)
-4. [Preface](preface)
-5. [Stimulus](stimulus)
-6. [Toolset](toolset)
-7. [Turbolinks](turbolinks)
-8. [Tying it all Together](tying_it_together)
-
 Modern web applications are ultra responsive, fast to load and visually rich - our customers expect snappy response times and repeated research has shown the adverse impact of web pages that load too slowly [^1].  Browsers however have traditionally been a poor platform for delivering these experiences.  (more color needed)
 
 Enginers are used to working around problems with browsers - one of the most ubiquitous Javascript tools - jQuery - was born out of a need to have a single API for interacting with browsers that all behaved differently.  We are acustomed to not rely on the browser and to shy away from the request/response paradigm using tools and frameworks to keep development "easy" while supporting a variety of runtimes. 
