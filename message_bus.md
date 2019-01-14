@@ -25,25 +25,25 @@ document.body.addEventListener('datepicker:selected', selectedDateHandler)
 
 Here we're publishing a custom event with a custom name of `datepicker:selected`, and a payload containing the date selected. We're publishing the event on the Stimulus controller element, allowing it to bubble up the DOM tree. Elsewhere we are listening for the custom event name on the `body` element, and the handler is logging out the published date.
 
-If you have only a few components in your project, this is probably all you need to enable cross component communication. It's simple and easy to understand, and if you don't need more I encourage you to go with the simplest thing that works.
+If you have only a few components in your project, this is probably all you need to enable cross component communication. It's simple and easy to understand, and if you don't need more we encourage you to go with the simplest thing that works.
 
-Since we knew that we would need cross component communication all across our app, we took a few more steps.
+Since we knew that we would need cross component communication all across our app, we will take a few more steps.
 
 ### Formalization Goals
 
-Publishing an event is simple enough, but when you know you might have dozens, if not hundreds of components living in an application it helps to formalize how you are publishing and subscribing. Along the way we can also prevent some common bugs from occurring with a few conventions.
+Publishing an event is simple enough, but when you know you might have dozens, if not hundreds of components living in an application it helps to formalize how you are publishing and subscribing. Along the way we can also prevent some common bugs by creating a few conventions.
 
 1. Avoid duplication with a canonical way to publish & subscribe
-2. Avoid magic strings & their bugs with defined event names
-3. Enable accurate telemetric logs with default data
-4. Enable dead-simple Stimulus integration by enhancing our `BaseController`
+2. Avoid magic strings & typo-based bugs with defined event names
+3. Enable accurate telemetric logging with default data
+4. Enable dead-simple Stimulus integration by enhancing our `ApplicationController`
 
 ### A canonical way to publish and subscribe
 
-Take our above simple example and formalize it into a standalone module. First, the complete code:
+Take our above simple example and formalize it into a standalone module.
 
 ```javascript
-// eventbus.js
+// ./lib/event_bus.js
 export const events = {
   DATEPICKER_PUBLISH: "datepicker:publish"
 }
@@ -101,6 +101,7 @@ First the code, then we'll walk through it.
 
 ```javascript
 // application_controller.js
+// TODO: Resolve the name & location of this file with the file mentioned in Application Structure
 import { Controller } from "stimulus";
 import { bus, events as busEvents } from "../helpers/eventbus";
 
