@@ -1,0 +1,7 @@
+## Managing CSS
+
+- Use a preprocessor, SCSS
+- Module-level CSS, like BEM
+- Layout files for positioning and light manipulation
+- Working with stateful classes (.success, .active, .inactive, etc)
+- Avoid binding JS to CSS, even the `.js-` prefix convention
