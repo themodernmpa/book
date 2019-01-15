@@ -40,6 +40,7 @@ The result of this small file will be 2 output files, `application.js` and `appl
 This is where we will initialize our Stimulus application, register controllers, and tie our controllers into the Turbolinks lifecycle with a a Base Controller and event hooks. There will be a fair amount going on here, so first, the code, and then we'll walk through each section in turn.
 
 ```javascript
+// ./application.js
 import { Application, Controller } from "stimulus"
 
 // Boot the stimulus application
@@ -66,13 +67,6 @@ document.addEventListener("turbolinks:before-cache", () => {
 application.handleError = (error, message, detail) => {
   console.error(message, error, detail)
 }
-
-// Define a base controller for us to exend elsewhere
-export class ApplicationController extends Controller {
-  navigation() {}
-  teardown() {}
-}
-
 ```
 
 ### Booting the application
