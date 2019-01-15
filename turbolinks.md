@@ -81,7 +81,7 @@ It's not uncommon to want to perform some manual navigation via a Javascript com
 
 If you need to maintain your JS context, the usual usage of `window.location.assign(location)` or `window.location = location` isn't going to work for us. You can however instruct Turbolinks to navigate to a desired location with the `Turbolinks.visit(location)` method, which will go through the same lifecycle as a link click. 
 
-But .`visit()` isn't the only navigation method you're going to need. For the purposes of *testability* and *findability*, we like to encapsulate all navigation methods used in our app into a standalone module, like so:
+But `.visit()` isn't the only navigation method you're going to need. For the purposes of *testability* and *findability*, we like to encapsulate all navigation methods used in our app into a standalone module, like so:
 
 ```javascript
 // ./helpers/navigate.js
@@ -121,3 +121,9 @@ export const navigate = {
 **Testability**: When you write tests for your Javascript, asserting page navigation can be a sticky point. Using a module such as this makes the test easy, you can spy on the module and assert that the correct method is executed with the correct parameter.
 
 **Findability**: Having your frontend JS littered with random `window.location = newUrl` and `Turbolinks.visit` can lead to some very frustrating debugging, and it's easy to let one-off usages slip through the cracks. With a standalone module you will always be able to look at whatever is importing `navigate` to know what could be issuing a page nav event.
+
+### Isomorphic Rendering & SEO
+
+One of the best parts about building a server-side rendered site with Turbolinks is the lack of extra effort for SEO. You don't need to worry about rendering your SPA server-side, isomorphic rendering concerns are out the door. If you're already writing semantic HTML and have an SEO strategy in place, you're done! Turbolinks is search engine friendly by default.
+
+The fire-and-forget aspect of Turbolinks is a great boon to anyone used to writing a traditional multi-page application. You can layer the library on top of an already functioning application, make a few minor changes to how you attach your dynamic frontend logic, and for the most part you're done. You'll instantly gain a persistant javascript process for whatever tricky interactions you need to maintain, and you can see  immediate speed improvements. For 95% of your features you can forget that the library is even present, and for the remaining 10% it provides a simple, yet rich feature set with which you can write most anything.
