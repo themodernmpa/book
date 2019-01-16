@@ -1,29 +1,29 @@
 ## The Technologies & Techniques Involved
 
-So what can you do without introducing Angular 17, or React+Redux+Redux-Thunk+React-Router+...? Maybe you've already built a few apps with jQuery and friends, and it works great up until the point when it becomes a hairball. Or maybe you've built SPA-based applications, and don't really want to embark on another journey managing two separate apps.
+So what can you do without introducing Angular 17, or React+Redux+Redux-Thunk+React-Router+...? You've already built a few apps with jQuery and friends, and it works great up until the point when it just... doesn't. The app seems to grow in weird directions, and somehow your nice clean jQuery functions get tied to your CSS in strange ways, and the new guy made some changes you didn't see in time so now you're kind of scared to change the CSS for FooModule because you don't know if you've tested all the use cases to ensure no breakage. It's a real pain, and you know it's only going to get worse as you add more team members.
 
-Our answer is, nearly everything. If you are able to take advantage of some of the new developments in JS-land, you can build yourself a very productive, but simple & familiar toolchain enabling you to keep your velocity up, and familarity high.
+My answer is, almost everything! If you are able to take advantage of some of the new developments in JS-land, you can build yourself a very productive, but simple & familiar toolchain enabling you to keep your velocity up, and familarity high.
 
-### To Webpack or not to Webpack
+#### To Webpack or not to Webpack
 
-Your first major decision is how far into the NPM toolchain you want to go. We promote a *moderate* use of NPM & Friends. Webpack is pretty nice, albeit complex, but if you apply the same judicious rules you use in the rest of your tech stack, you can keep it sane and avoid most common issues.
+Your first major decision is how far into the NPM toolchain you want to go. I promote a *moderate* use of NPM & Friends. Webpack is pretty nice, albeit complex, but if you apply the same judicious rules you use in the rest of your tech stack, you can keep it sane and avoid most common issues.
 
 - Add packages sparingly. `npm i` should be used for core tools only. The more you add here, the harder your life will get going forward.
-- Don't get pollyfill happy. Use them sparingly, and only for what you really need. All of the new ES syntax is very nice, but depending on the browsers you have to support, you could end up inflating your final asset size by quite a bit.
+- Commit/Vendor your packages! NPM and its ecosystem is young, and occasionally has problems with package idempotence and stability as well as with honoring semantic versioning [^1]. You should code review all changes, don't let your CI pull new things in without review.
 
-Moving forward, we'll assume you're using an NPM-based package manager of some kind (we use Yarn).
+Moving forward, we'll assume you're using an NPM-based package manager of some kind (we use Yarn). We'll discuss a few ways you can avoid using NPM as we go along for anyone who wants to continue importing their own dependencies by hand, but the assumption is if you're doing that you know what you need.
 
-### Prefer Serving HTML
+#### Prefer Serving HTML
 
-We're going to build an app that prefers to serve HTML. We'll use a variety of techniques to manage how this HTML is handled, but your default assumption should always be, send HTML. This includes for most AJAX requests too! If you go too far down the rabbit hole of serving up JSON and parsing it on the front end you will slowly work your way into a position where you'd wish you were using Angular.
+We're going to build an app that prefers to serve HTML. We'll use a variety of techniques to manage how this HTML is handled, but your default assumption should always be, send HTML. This includes for most AJAX requests too! If you go too far down the rabbit hole of serving up JSON and parsing it on the front end you will slowly work your way into a position where you'd wish you were using Angular. Interpolating JSON into the DOM is for the birds, don't do that.
 
-Your application server is very good at building HTML. Your web server is good at sending it. Your users' browser is amazingly good at parsing it. You should be sending HTML at every opportunity. If the standard is to send HTML, most of your transactions are reduced to a sequence of `send request, check response code, inject response into content`. This approach is simple to start with, and straightforward to maintain.
+Your application server is very good at building HTML. Your web server is good at sending it. Your users' browser is amazingly good at parsing it. You should be sending HTML at every opportunity. If the standard is to send HTML, most of your transactions are reduced to a sequence of `send request, check response code, inject response into content`. Dead simple, easy to maintain, easy to understand, easy to enhance.
 
-### Honor the URL
+#### Honor the URL
 
-A fundamental part of building a modern multi-page application is to honor the URL in every way possible. If the user hits CTRL+R, they should reload *exactly as they are*. Do your best to always honor the URL, and to store any resumable state on the server so the page can be rebuilt server-side.
+The URL is God. A fundamental part of building a modern MPA is to honor the URL in every way possible. If the user hits CTRL+R, they should reload *exactly as they are*.  Do your best to always honor the URL, and to store any resumable state on the server so the page can be rebuilt server-side.
 
-While modern SPA frameworks have gotten better about keeping the URL in sync 
+This becomes even more important when using Turbolinks, as we'll discuss in a minute.
 
 #### Respond to DOM Presence
 
