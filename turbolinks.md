@@ -79,7 +79,7 @@ We've also seen emergency bug fix deployments not squelch all errors as buggy ja
 
 It's not uncommon to want to perform some manual navigation via a Javascript component. The canonical example would be after handling a POST request asyncronously you usually want to send the user somewhere.
 
-If you need to maintain your JS context, the usual usage of `window.location.assign(location)` or `window.location = location` isn't going to work for us. You can however instruct Turbolinks to navigate to a desired location with the `Turbolinks.visit(location)` method, which will go through the same lifecycle as a link click. 
+If you need to maintain your JS context, the usual usage of `window.location.assign(location)` or `window.location = location` isn't going to work for us as it bypasses Turbolinks entirely and performs a native reload.. You can however instruct Turbolinks to navigate to a desired location with the `Turbolinks.visit(location)` method, which will go through the same lifecycle as a link click. 
 
 But `.visit()` isn't the only navigation method you're going to need. For the purposes of *testability* and *findability*, we like to encapsulate all navigation methods used in our app into a standalone module, like so:
 
